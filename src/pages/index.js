@@ -134,6 +134,7 @@ function CineQuestCarousel(props) {
 
   function handleClick() {
     console.log("handle click - redirect to another page");
+    
   }
 
   let elements = [];
