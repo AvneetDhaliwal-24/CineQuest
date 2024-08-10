@@ -1,0 +1,122 @@
+.carousel-item {
+    flex: 1 0 20%;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 1.5em;
+    padding: 0px 20px 20px 20px;
+    /* background: #eee; */
+    border-radius: 10px;
+    margin: 0 10px;
+  
+  }
+  
+  .carousel-inner {
+    display: flex;
+  }
+  
+  .carousel-item-next,
+  .carousel-item-prev,
+  .carousel-item-next,
+  .carousel-item-prev {
+    display: none;
+  }
+  
+  .carousel-control-next,
+  .carousel-control-prev {
+    max-width: fit-content;
+    margin: 8px;
+  }
+  
+  .carousel-control-prev-icon {
+    background-image: url('https://icons.veryicon.com/png/o/miscellaneous/frozenui/prev-1.png') !important;
+  }
+  
+  .carousel-control-next-icon {
+    background-image: url('https://icons.veryicon.com/png/o/miscellaneous/frozenui/prev-1.png') !important;
+    transform: rotate(180deg);
+  }
+  
+  
+  .carouselItemParentDiv img {
+    height: 200px;
+    width: 208px;
+    border-radius: 8px 8px 0px 0px;
+  }
+  
+  .carouselItemParentDiv h4 {
+    font-size: 15px;
+  }
+  
+  .carouselItemParentDiv h4,
+  .carouselItemParentDiv p {
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  .carouselItemParentDiv div div:nth-child(1) {
+    padding: 1% 2px 1% 1%;
+    text-align: left;
+    margin: 8px 0px 8px 8px;
+  }
+  
+  .carouselItemParentDiv div div:nth-child(2) {
+    padding: 0%;
+    text-align: right;
+    margin: 8px 8px 8px 0px;
+    max-width: fit-content;
+    min-width: fit-content;
+    flex: auto;
+  }
+  
+  .carouselItemParentDiv div div:nth-child(2) span {
+    top: 2px;
+    position: relative;
+  }
+  
+  .carouselItemParentDiv p {
+    font-weight: 200;
+    font-size: 14px;
+  }
+  
+  .carouselItemParentDiv {
+    border-radius: 8px;
+    border: 1px solid #e3e3e3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+    /* border: 1px solid rgba(var(--lightGrey), 1); */
+    background-color: #fff;
+    width: 210px;
+    margin: 10px 21px;
+    cursor: pointer;
+  }
+  
+  .carouselItemsContainer {
+    display: flex;
+    justify-content: flex-start;
+  
+  }
+  
+  .carouselHeader {
+    margin-left: 58px;
+    cursor: pointer;
+  }
+  
+  .movieInformation {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0px;
+    padding: 0px;
+    justify-content: space-between;
+  }
+  
+  
+  .carouselHeader:hover .seeMoreArrow {
+    fill: gold;
+  }
+  
+  .carouselHeader a{
+    text-decoration: none;
+    color: black;
+  }
+  .carouselHeader a:hover{
+    color: black;
+  }
