@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Carousel from 'react-bootstrap/Carousel';
+import { useRouter } from 'next/router';
 
 export default function HomePage() {
   return (
@@ -241,9 +242,10 @@ function RecentlyReleasedMovies() {
 }
 
 function CineQuestCarousel(props) {
+  const router = useRouter();
 
   function handleClick() {
-    console.log("handle click - redirect to another page");
+    router.push('/MovieList');
   }
 
   let elements = [];
