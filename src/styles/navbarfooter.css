@@ -1,0 +1,69 @@
+/* src/styles/Home.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #FCFFE7;
+}
+
+.header {
+    background-color: #FCFFE7;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    margin: 0;
+    color: #2B3467;
+}
+
+.searchBar {
+    display: flex;
+}
+
+.searchInput {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.navigationBar {
+    background-color: #bad7e9;
+}
+
+.navList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.navItem {
+    margin: 0;
+}
+
+.navLink {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.navLink:hover {
+    background-color: #EB455F;
+}
+
+.mainContent {
+    padding: 20px;
+    flex: 1;
+    color: #2B3467;
+}
+
+.footer {
+    background-color: #FCFFE7;
+    padding: 10px;
+    text-align: center;
+    color: #2B3467;
+}
