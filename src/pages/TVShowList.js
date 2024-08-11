@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router'
 import Image from 'next/image';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -25,7 +24,7 @@ const Movie = ({ title, img }) => (
 export default function Home() {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortBy, setSortBy] = useState("popularity");
+  const [sortBy, setSortBy] = useState("vote_average");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [genre, setGenre] = useState("");
   const [year, setYear] = useState("");
@@ -34,22 +33,18 @@ export default function Home() {
   const totalMoviesFetched = 20; // Number of movies fetched per API call
   let totalPages = Math.ceil(movies.length / moviesPerPage); 
   const imageBaseURL = 'https://image.tmdb.org/t/p/w500';
-  const router = useRouter();
-  const searchParams = useSearchParams()
-
 
   // Fetch movies from the API with filters and sorting applied
   const fetchMovies = async (page = 1) => {
     const genreQuery = selectedGenre ? `&with_genres=${selectedGenre}` : '';
     const yearQuery = year ? `&primary_release_year=${year}` : '';
-    let url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}.${sortOrder}${genreQuery}${yearQuery}`;
+    const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}.${sortOrder}${genreQuery}${yearQuery}`;
 
-    //receive index param
-    const urlIndex = 'https://api.themoviedb.org/3/movie/';
-    const urlFilter = searchParams.get('filter');
-    if (urlFilter) {
-    url = urlIndex + urlFilter;
-    console.log(urlFilter);
+    //receive index stuff
+    const urlIndex = 'https://api.themoviedb.org/3/movie';
+    const indexFilter = router.query;
+    if (indexFilter) {
+    url = urlIndex+indexFilter;
     }
 
     const options = {
