@@ -262,6 +262,8 @@ function CineQuestCarousel(props) {
     elements.push(element);
   }
 
+  //we made changes here!!
+
   return (
     <>
       <Link className="carouselHeader" href={{
