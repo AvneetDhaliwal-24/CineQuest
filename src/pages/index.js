@@ -245,10 +245,7 @@ function CineQuestCarousel(props) {
   const router = useRouter();
 
   function handleClick() {
-
-    console.log("handle click - redirect to another page");
     router.push('/MovieList');
-
   }
 
   let elements = [];
