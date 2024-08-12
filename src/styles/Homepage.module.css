@@ -69,7 +69,7 @@
 }
 
 
-.carouselHeader:hover .seeMoreArrow {
+.carouselHeader:hover .seeMoreArrowBtn {
   fill: gold;
 }
 
