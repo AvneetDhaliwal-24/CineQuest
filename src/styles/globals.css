@@ -1,0 +1,37 @@
+/* index page global css for carousel  */
+.carousel-item {
+    flex: 1 0 20%;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 1.5em;
+    padding: 0px 20px 20px 20px;
+    border-radius: 10px;
+    margin: 0 10px;
+  
+  }
+  
+  .carousel-inner {
+    display: flex;
+  }
+  
+  .carousel-item-next,
+  .carousel-item-prev,
+  .carousel-item-next,
+  .carousel-item-prev {
+    display: none;
+  }
+  
+  .carousel-control-next,
+  .carousel-control-prev {
+    max-width: fit-content;
+    margin: 8px;
+  }
+  
+  .carousel-control-prev-icon {
+    background-image: url('https://icons.veryicon.com/png/o/miscellaneous/frozenui/prev-1.png') !important;
+  }
+  
+  .carousel-control-next-icon {
+    background-image: url('https://icons.veryicon.com/png/o/miscellaneous/frozenui/prev-1.png') !important;
+    transform: rotate(180deg);
+  }
