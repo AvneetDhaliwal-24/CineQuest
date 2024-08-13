@@ -1,4 +1,3 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/movies/[id]/[media_type]/page": "app/movies/[id]/[media_type]/page.js"
 }
