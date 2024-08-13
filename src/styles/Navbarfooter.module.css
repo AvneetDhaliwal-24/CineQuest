@@ -21,12 +21,22 @@
 
 .searchBar {
     display: flex;
+    border: 1px solid black;
+    width: 25vw;
+}
+
+.searchBar select {
+    border: 0px;
+    border-right: 2px solid black;
+    text-align: center;
+    height: 40px;
 }
 
 .searchInput {
-    padding: 5px;
-    border: 1px solid #ddd;
+    height: 40px;
+    border: 0px;
     border-radius: 4px;
+    width: 100%;
 }
 
 .navigationBar {
@@ -38,6 +48,7 @@
     padding: 0;
     margin: 0;
     display: flex;
+    justify-content: center;
 }
 
 .navItem {
@@ -67,3 +78,29 @@
     text-align: center;
     color: #2B3467;
 }
+
+
+
+/* search drop down css */
+
+    .resultsList {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 0;
+        border: 1px solid #ccc;
+        border-top: none;
+        background-color: #fff;
+        max-height: 400px;
+        overflow-y: auto;
+        position: absolute;
+        z-index: 999;
+        width: 25vw;
+    }
+    .resultsItem {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        display: flex
+    }
+    .resultsItem:hover {
+        background-color: #f0f0f0;
+    }
