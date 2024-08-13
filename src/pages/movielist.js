@@ -7,8 +7,11 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import noImage from '../styles/no_img.jpg';
+// Dani: I added a component to your Movie component but otherwise I have not touched your code
+import MediaDetails from '../../app/components/MediaDetails';
+import Media from '../../app/components/Media';
 
-const Movie = ({ title, img }) => (
+const Movie = ({ title, img, id, media_type, release_date }) => (
   <div className='movie-item'>
     <h3 className='movie-title'>{title}</h3>
     <div className='image-wrapper'>
@@ -18,7 +21,13 @@ const Movie = ({ title, img }) => (
         width={170}
         height={150}
         alt={title} />
+        
     </div>
+   
+      <MediaDetails key={id} id={id} title={title} name={name}></MediaDetails>
+  
+    
+  
   </div>
 );
 
@@ -71,6 +80,7 @@ export default function Home() {
           updatedMovies[pageIndex] = movie;
         });
         return updatedMovies;
+        
       });
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -168,6 +178,7 @@ export default function Home() {
   }
 
   return (
+    <>
     <div className='container'>
       {/* Filter and Sort Options */}
       <ButtonGroup>
@@ -218,7 +229,9 @@ export default function Home() {
       <div className='movie-list'>
         {getCurrentMovies().map((movie) => (
           <Movie key={movie.id} title={movie.title}
-            img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage} />
+            img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage} 
+            media_type={movie.media_type} id={movie.id}/>          
+            
         ))}
       </div>
 
@@ -227,5 +240,6 @@ export default function Home() {
         {createPaginationItems()}
       </div>
     </div>
-  );
+    </>
+  ); 
 }
