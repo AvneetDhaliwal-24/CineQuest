@@ -42,9 +42,9 @@ export default function Home() {
   const fetchMovies = async (page = 1) => {
     const genreQuery = selectedGenre ? `&with_genres=${selectedGenre}` : '';
     const yearQuery = year ? `&primary_release_year=${year}` : '';
-    let url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}.${sortOrder}${genreQuery}${yearQuery}`;
+    let url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}.${sortOrder}${genreQuery}${yearQuery}`;
     //receive index param
-    const urlIndex = 'https://api.themoviedb.org/3/movie/';
+    const urlIndex = 'https://api.themoviedb.org/3/tv/';
     const urlFilter = searchParams.get('filter');
     
     if (urlFilter) {
@@ -69,6 +69,7 @@ export default function Home() {
         data.results.forEach((movie, index) => {
           const pageIndex = (page - 1) * totalMoviesFetched + index;
           updatedMovies[pageIndex] = movie;
+          console.log(movie);
         });
         return updatedMovies;
       });
@@ -217,7 +218,7 @@ export default function Home() {
       {/* Display the current set of movies */}
       <div className='movie-list'>
         {getCurrentMovies().map((movie) => (
-          <Movie key={movie.id} title={movie.title}
+          <Movie key={movie.id} title={movie.name}
             img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage} />
         ))}
       </div>
