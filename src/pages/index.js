@@ -71,7 +71,7 @@ function CineQuestCarousel(props) {
       <div className={styles.carouselItemsContainer}>
         {
           props.list.slice(i, i + 7).map((j) => {
-            return <CarouselItem item={j} />
+            return <CarouselItem item={j} about={props.about} />
           })
         }
       </div>
@@ -106,8 +106,11 @@ function CineQuestCarousel(props) {
 
 function CarouselItem(props) {
 
+ 
+  const router = useRouter();
+
   function handleClick() {
-    // console.log(props.item.id);
+    router.push(`/movies/${props.item.id}/${props.about}`);
   }
 
   return (
