@@ -7,11 +7,8 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import noImage from '../styles/no_img.jpg';
-// Dani: I added a component to your Movie component but otherwise I have not touched your code
-import MediaDetails from '../../app/components/MediaDetails';
-import Media from '../../app/components/Media';
 
-const Movie = ({ title, img, id, media_type, release_date }) => (
+const Movie = ({ title, img }) => (
   <div className='movie-item'>
     <h3 className='movie-title'>{title}</h3>
     <div className='image-wrapper'>
@@ -21,13 +18,7 @@ const Movie = ({ title, img, id, media_type, release_date }) => (
         width={170}
         height={150}
         alt={title} />
-        
     </div>
-   
-      <MediaDetails key={id} id={id} title={title} name={name}></MediaDetails>
-  
-    
-  
   </div>
 );
 
@@ -51,9 +42,9 @@ export default function Home() {
   const fetchMovies = async (page = 1) => {
     const genreQuery = selectedGenre ? `&with_genres=${selectedGenre}` : '';
     const yearQuery = year ? `&primary_release_year=${year}` : '';
-    let url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}.${sortOrder}${genreQuery}${yearQuery}`;
+    let url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}.${sortOrder}${genreQuery}${yearQuery}`;
     //receive index param
-    const urlIndex = 'https://api.themoviedb.org/3/movie/';
+    const urlIndex = 'https://api.themoviedb.org/3/tv/';
     const urlFilter = searchParams.get('filter');
     
     if (urlFilter) {
@@ -78,9 +69,9 @@ export default function Home() {
         data.results.forEach((movie, index) => {
           const pageIndex = (page - 1) * totalMoviesFetched + index;
           updatedMovies[pageIndex] = movie;
+          console.log(movie);
         });
         return updatedMovies;
-        
       });
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -178,7 +169,6 @@ export default function Home() {
   }
 
   return (
-    <>
     <div className='container'>
       {/* Filter and Sort Options */}
       <ButtonGroup>
@@ -228,10 +218,8 @@ export default function Home() {
       {/* Display the current set of movies */}
       <div className='movie-list'>
         {getCurrentMovies().map((movie) => (
-          <Movie key={movie.id} title={movie.title}
-            img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage} 
-            media_type={movie.media_type} id={movie.id}/>          
-            
+          <Movie key={movie.id} title={movie.name}
+            img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage} />
         ))}
       </div>
 
@@ -240,6 +228,5 @@ export default function Home() {
         {createPaginationItems()}
       </div>
     </div>
-    </>
-  ); 
+  );
 }
