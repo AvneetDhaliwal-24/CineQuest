@@ -75,16 +75,22 @@ export const NavigationBar = () => (
   <nav className={styles.navigationBar}>
     <ul className={styles.navList}>
       <li className={styles.navItem}>
-        <Link href="/recently-released" className={styles.navLink}>Recently Released</Link>
+        <Link href={{
+          pathname: '/MovieList/',
+          query: {filter: 'now_playing'}
+          }} className={styles.navLink}>Recently Released</Link>
       </li>
       <li className={styles.navItem}>
-        <Link href="/movies" className={styles.navLink}>Movies</Link>
+        <Link href="/MovieList" className={styles.navLink}>Movies</Link>
       </li>
       <li className={styles.navItem}>
-        <Link href="/tv-shows" className={styles.navLink}>TV Shows</Link>
+        <Link href="/TVShowList" className={styles.navLink}>TV Shows</Link>
       </li>
       <li className={styles.navItem}>
-        <Link href="/top-rated" className={styles.navLink}>Top Rated</Link>
+        <Link href={{
+          pathname: '/MovieList/',
+          query: {filter: 'top_rated'}
+          }} className={styles.navLink}>Top Rated</Link>
       </li>
     </ul>
   </nav>
