@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation';
 
-export default function MediaDetails({id, media_type, title, name}){
+export default function MediaDetails({id, media_type, title, name, release_date, first_air_date}){
     const options = {
         method: 'GET',
         headers: {
@@ -11,30 +11,19 @@ export default function MediaDetails({id, media_type, title, name}){
     };
 
     const router = useRouter();
-    async function getTV(id, media_type){
-        const url = `https://api.themoviedb.org/3/${media_type}/${id}`
-        const res = await fetch(url, options);
-        const data = await res.json();
-        console.log(data);
-        return data;       
-    }
 
-    function detailGo(){
-        
-       console.log(id, media_type, title, name);
-       if (title){
-        media_type='movie';
-        router.push(`/movies/${id}/${media_type}`)
-       } else {
+    function detailGo(){     
+       if (name){
         media_type='tv';
         router.push(`/movies/${id}/${media_type}`)
-       }
-    
-        
+       } else {
+        media_type='movie';
+        router.push(`/movies/${id}/${media_type}`)
+       }   
     }
 
     return (
         <>
-        <button onClick={detailGo}>More Info</button></>
+        <button className='mediaDetails' onClick={detailGo}>More Info</button></>
     )
 }

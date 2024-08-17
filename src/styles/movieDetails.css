@@ -1,6 +1,13 @@
 .searchImg{
-    /* height: 10%; */
     width: 20%;
-    border-radius: 8px;
-   
+    border-radius: 8px;  
+}
+
+.mediaDetails{
+    border: none;
+    background: #bad7e9;
+}
+
+.mediaDetails:hover{
+    background: #0d6efd;
 }

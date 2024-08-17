@@ -9,7 +9,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import noImage from '../styles/no_img.jpg';
 // Dani: I added a component to your Movie component but otherwise I have not touched your code
 import MediaDetails from '../../app/components/MediaDetails';
-import Media from '../../app/components/Media';
 
 const Movie = ({ title, img, id, media_type, release_date }) => (
   <div className='movie-item'>
@@ -21,13 +20,8 @@ const Movie = ({ title, img, id, media_type, release_date }) => (
         width={170}
         height={150}
         alt={title} />
-        
     </div>
-   
-      <MediaDetails key={id} id={id} title={title} name={name}></MediaDetails>
-  
-    
-  
+    <MediaDetails key={id} id={id} title={title} name={name} media_type={media_type}></MediaDetails>
   </div>
 );
 
@@ -41,7 +35,7 @@ export default function Home() {
   const [sortOrder, setSortOrder] = useState("desc");
   const moviesPerPage = 9;
   const totalMoviesFetched = 20; // Number of movies fetched per API call
-  let totalPages = Math.ceil(movies.length / moviesPerPage); 
+  let totalPages = Math.ceil(movies.length / moviesPerPage);
   const imageBaseURL = 'https://image.tmdb.org/t/p/w500';
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -55,7 +49,7 @@ export default function Home() {
     //receive index param
     const urlIndex = 'https://api.themoviedb.org/3/movie/';
     const urlFilter = searchParams.get('filter');
-    
+
     if (urlFilter) {
       url = urlIndex + urlFilter;
       console.log('Filter applied:', urlFilter);
@@ -80,7 +74,7 @@ export default function Home() {
           updatedMovies[pageIndex] = movie;
         });
         return updatedMovies;
-        
+
       });
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -123,7 +117,7 @@ export default function Home() {
     if (pageNumber > totalPages) {
       const nextPageToFetch = Math.ceil((pageNumber - 1) * moviesPerPage / totalMoviesFetched) + 1;
       fetchMovies(nextPageToFetch);
-    } 
+    }
   };
 
   // Create pagination items for navigation
@@ -179,67 +173,67 @@ export default function Home() {
 
   return (
     <>
-    <div className='container'>
-      {/* Filter and Sort Options */}
-      <ButtonGroup>
-        <DropdownButton as={ButtonGroup} title="Genre" id="bg-nested-dropdown">
-          {/* Genre filter options */}
-          <Dropdown.Item onClick={() => { setSelectedGenre(''); setGenre(""); }}>None</Dropdown.Item>
-          <Dropdown.Item eventKey="1" onClick={() => { setSelectedGenre('28'); setGenre("Action"); }}>Action</Dropdown.Item>
-          <Dropdown.Item eventKey="2" onClick={() => { setSelectedGenre('12'); setGenre("Adventure"); }}>Adventure</Dropdown.Item>
-          <Dropdown.Item eventKey="3" onClick={() => { setSelectedGenre('35'); setGenre("Comedy"); }}>Comedy</Dropdown.Item>
-          <Dropdown.Item eventKey="4" onClick={() => { setSelectedGenre('80'); setGenre("Crime"); }}>Crime</Dropdown.Item>
-          <Dropdown.Item eventKey="5" onClick={() => { setSelectedGenre('18'); setGenre("Drama"); }}>Drama</Dropdown.Item>
-          <Dropdown.Item eventKey="6" onClick={() => { setSelectedGenre('10749'); setGenre("Romance"); }}>Romance</Dropdown.Item>
-          <Dropdown.Item eventKey="7" onClick={() => { setSelectedGenre('878'); setGenre("Science Fiction"); }}>Science Fiction</Dropdown.Item>
-        </DropdownButton>
+      <div className='container'>
+        {/* Filter and Sort Options */}
+        <ButtonGroup>
+          <DropdownButton as={ButtonGroup} title="Genre" id="bg-nested-dropdown">
+            {/* Genre filter options */}
+            <Dropdown.Item onClick={() => { setSelectedGenre(''); setGenre(""); }}>None</Dropdown.Item>
+            <Dropdown.Item eventKey="1" onClick={() => { setSelectedGenre('28'); setGenre("Action"); }}>Action</Dropdown.Item>
+            <Dropdown.Item eventKey="2" onClick={() => { setSelectedGenre('12'); setGenre("Adventure"); }}>Adventure</Dropdown.Item>
+            <Dropdown.Item eventKey="3" onClick={() => { setSelectedGenre('35'); setGenre("Comedy"); }}>Comedy</Dropdown.Item>
+            <Dropdown.Item eventKey="4" onClick={() => { setSelectedGenre('80'); setGenre("Crime"); }}>Crime</Dropdown.Item>
+            <Dropdown.Item eventKey="5" onClick={() => { setSelectedGenre('18'); setGenre("Drama"); }}>Drama</Dropdown.Item>
+            <Dropdown.Item eventKey="6" onClick={() => { setSelectedGenre('10749'); setGenre("Romance"); }}>Romance</Dropdown.Item>
+            <Dropdown.Item eventKey="7" onClick={() => { setSelectedGenre('878'); setGenre("Science Fiction"); }}>Science Fiction</Dropdown.Item>
+          </DropdownButton>
 
-        {/* Year filter input */}
-        <input
-          type="text"
-          inputMode="numeric"
-          placeholder="Year"
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-        />
+          {/* Year filter input */}
+          <input
+            type="text"
+            inputMode="numeric"
+            placeholder="Year"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+          />
 
-        {/* Sort by Popularity button */}
-        <Button onClick={() => handleSort("popularity")}>
-          Popularity {sortOrder === "asc" ? "↑" : "↓"}
-        </Button>
+          {/* Sort by Popularity button */}
+          <Button onClick={() => handleSort("popularity")}>
+            Popularity {sortOrder === "asc" ? "↑" : "↓"}
+          </Button>
 
-        {/* Sort by Title button */}
-        <Button onClick={() => handleSort("title")}>
-          Title {sortOrder === "asc" ? "↑" : "↓"}
-        </Button>
-        
-        {/* Reset filters button */}
-        <Button onClick={() => refreshPage()}>
-          Reset filters
-        </Button>
-        
-      </ButtonGroup>
+          {/* Sort by Title button */}
+          <Button onClick={() => handleSort("title")}>
+            Title {sortOrder === "asc" ? "↑" : "↓"}
+          </Button>
 
-      {/* Display the selected genre */}
-      <div>
-        <h2>{genre}</h2>
+          {/* Reset filters button */}
+          <Button onClick={() => refreshPage()}>
+            Reset filters
+          </Button>
+
+        </ButtonGroup>
+
+        {/* Display the selected genre */}
+        <div>
+          <h2>{genre}</h2>
+        </div>
+
+        {/* Display the current set of movies */}
+        <div className='movie-list'>
+          {getCurrentMovies().map((movie) => (
+            <Movie key={movie.id} title={movie.title}
+              img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage}
+               id={movie.id} media_type='movie'/>
+
+          ))}
+        </div>
+
+        {/* Pagination controls */}
+        <div className='pagination'>
+          {createPaginationItems()}
+        </div>
       </div>
-
-      {/* Display the current set of movies */}
-      <div className='movie-list'>
-        {getCurrentMovies().map((movie) => (
-          <Movie key={movie.id} title={movie.title}
-            img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage} 
-            media_type={movie.media_type} id={movie.id}/>          
-            
-        ))}
-      </div>
-
-      {/* Pagination controls */}
-      <div className='pagination'>
-        {createPaginationItems()}
-      </div>
-    </div>
     </>
-  ); 
+  );
 }

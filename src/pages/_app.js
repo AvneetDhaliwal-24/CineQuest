@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 import '../styles/gallery.css'; 
+import '../styles/movieDetails.css';
 
 import Layout from "./navbarfootergloballayout";
 

@@ -1,15 +1,21 @@
 {
   "pages": {
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/layout.js"
+    ],
+    "/movies/[id]/[media_type]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/movies/[id]/[media_type]/page.css",
+      "static/chunks/app/movies/[id]/[media_type]/page.js"
+    ],
     "/movies/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/movies/page.css",
       "static/chunks/app/movies/page.js"
-    ],
-    "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/layout.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

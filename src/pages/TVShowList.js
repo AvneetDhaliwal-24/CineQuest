@@ -7,8 +7,10 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import noImage from '../styles/no_img.jpg';
+import MediaDetails from '../../app/components/MediaDetails';
 
-const Movie = ({ title, img }) => (
+
+const Movie = ({ title, img, id, release_date, name, first_air_date, media_type }) => (
   <div className='movie-item'>
     <h3 className='movie-title'>{title}</h3>
     <div className='image-wrapper'>
@@ -19,6 +21,7 @@ const Movie = ({ title, img }) => (
         height={150}
         alt={title} />
     </div>
+    <MediaDetails key={id} id={id} name={name} media_type={media_type}></MediaDetails>
   </div>
 );
 
@@ -219,7 +222,8 @@ export default function Home() {
       <div className='movie-list'>
         {getCurrentMovies().map((movie) => (
           <Movie key={movie.id} title={movie.name}
-            img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage} />
+            img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage}
+            id={movie.id} first_air_date={movie.first_air_date} media_type='tv' name={movie.name}/>
         ))}
       </div>
 
