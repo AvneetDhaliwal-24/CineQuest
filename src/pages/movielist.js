@@ -10,7 +10,6 @@ import noImage from '../styles/no_img.jpg';
 import '../styles/filters.css';
 // Dani: I added a component to your Movie component but otherwise I have not touched your code
 import MediaDetails from '../../app/components/MediaDetails';
-import Media from '../../app/components/Media';
 
 const Movie = ({ title, img, id, media_type, release_date }) => (
   <div className='movie-item'>
@@ -22,13 +21,8 @@ const Movie = ({ title, img, id, media_type, release_date }) => (
         width={170}
         height={150}
         alt={title} />
-        
     </div>
-   
-      <MediaDetails key={id} id={id} title={title} name={name}></MediaDetails>
-  
-    
-  
+    <MediaDetails key={id} id={id} title={title} name={name} media_type={media_type}></MediaDetails>
   </div>
 );
 
@@ -42,7 +36,7 @@ export default function Home() {
   const [sortOrder, setSortOrder] = useState("desc");
   const moviesPerPage = 9;
   const totalMoviesFetched = 20; // Number of movies fetched per API call
-  let totalPages = Math.ceil(movies.length / moviesPerPage); 
+  let totalPages = Math.ceil(movies.length / moviesPerPage);
   const imageBaseURL = 'https://image.tmdb.org/t/p/w500';
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -56,7 +50,7 @@ export default function Home() {
     //receive index param
     const urlIndex = 'https://api.themoviedb.org/3/movie/';
     const urlFilter = searchParams.get('filter');
-    
+
     if (urlFilter) {
       url = urlIndex + urlFilter;
       console.log('Filter applied:', urlFilter);
@@ -81,7 +75,7 @@ export default function Home() {
           updatedMovies[pageIndex] = movie;
         });
         return updatedMovies;
-        
+
       });
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -124,7 +118,7 @@ export default function Home() {
     if (pageNumber > totalPages) {
       const nextPageToFetch = Math.ceil((pageNumber - 1) * moviesPerPage / totalMoviesFetched) + 1;
       fetchMovies(nextPageToFetch);
-    } 
+    }
   };
 
   // Create pagination items for navigation
@@ -224,26 +218,26 @@ export default function Home() {
       </ButtonGroup>
       </div>
 
-      {/* Display the selected genre */}
-      <div>
-        <h2>{genre}</h2>
-      </div>
+        {/* Display the selected genre */}
+        <div>
+          <h2>{genre}</h2>
+        </div>
 
-      {/* Display the current set of movies */}
-      <div className='movie-list'>
-        {getCurrentMovies().map((movie) => (
-          <Movie key={movie.id} title={movie.title}
-            img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage} 
-            media_type={movie.media_type} id={movie.id}/>          
-            
-        ))}
-      </div>
+        {/* Display the current set of movies */}
+        <div className='movie-list'>
+          {getCurrentMovies().map((movie) => (
+            <Movie key={movie.id} title={movie.title}
+              img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage}
+               id={movie.id} media_type='movie'/>
 
-      {/* Pagination controls */}
-      <div className='pagination'>
-        {createPaginationItems()}
+          ))}
+        </div>
+
+        {/* Pagination controls */}
+        <div className='pagination'>
+          {createPaginationItems()}
+        </div>
       </div>
-    </div>
     </>
-  ); 
+  );
 }

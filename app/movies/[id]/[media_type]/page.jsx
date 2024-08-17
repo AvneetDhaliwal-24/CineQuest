@@ -44,9 +44,9 @@ export default async function SelectedMedia({params}) {
         {
            <div>
            {mediaParams.name ? (
-             <Media key={mediaParams.id} id={mediaParams.id} name={mediaParams.name} first_air_date={mediaParams.first_air_date} last_air_date={mediaParams.last_air_date} image={`https://image.tmdb.org/t/p/original/${mediaParams.poster_path}`} media_type={mediaParams.media_type} overview={mediaParams.overview}></Media>  
+             <Media key={mediaParams.id} id={mediaParams.id} name={mediaParams.name} first_air_date={mediaParams.first_air_date} last_air_date={mediaParams.last_air_date} image={`https://image.tmdb.org/t/p/original/${mediaParams.poster_path}`} media_type='tv' overview={mediaParams.overview}></Media>  
            ) : (
-            <Media key={mediaParams.id} id={mediaParams.id} title={mediaParams.title} release_date={mediaParams.release_date} image={`https://image.tmdb.org/t/p/original/${mediaParams.poster_path}`} media_type={mediaParams.media_type} overview={mediaParams.overview}></Media> 
+            <Media key={mediaParams.id} id={mediaParams.id} title={mediaParams.title} release_date={mediaParams.release_date} image={`https://image.tmdb.org/t/p/original/${mediaParams.poster_path}`} media_type='movie' overview={mediaParams.overview}></Media> 
            )}
          </div>
 }
