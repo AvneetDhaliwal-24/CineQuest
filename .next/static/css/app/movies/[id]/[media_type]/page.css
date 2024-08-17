@@ -1,17 +1,168 @@
+/*!******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/styles/Navbarfooter.module.css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************/
+/* src/styles/Home.module.css */
+.Navbarfooter_container__Pcldm {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #FCFFE7;
+}
+
+.Navbarfooter_header__gIMqi {
+    background-color: #FCFFE7;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Navbarfooter_title__CV1QM {
+    margin: 0;
+    color: #2B3467;
+}
+
+.Navbarfooter_searchBar__1iVl3 {
+    display: flex;
+    border: 1px solid black;
+    width: 25vw;
+}
+
+.Navbarfooter_searchBar__1iVl3 select {
+    border: 0px;
+    border-right: 2px solid black;
+    text-align: center;
+    height: 40px;
+}
+
+.Navbarfooter_searchInput__2BhTl {
+    height: 40px;
+    border: 0px;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.Navbarfooter_navigationBar__vc2Sf {
+    background-color: #bad7e9;
+}
+
+.Navbarfooter_navList__rszYE {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.Navbarfooter_navItem__Ss5kJ {
+    margin: 0;
+}
+
+.Navbarfooter_navLink__7uq0b {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.Navbarfooter_navLink__7uq0b:hover {
+    background-color: #EB455F;
+}
+
+.Navbarfooter_mainContent__bkJu4 {
+    padding: 20px;
+    flex: 1 1;
+    color: #2B3467;
+}
+
+.Navbarfooter_footer__tbFF2 {
+    background-color: #FCFFE7;
+    padding: 10px;
+    text-align: center;
+    color: #2B3467;
+}
+
+
+
+/* search drop down css */
+
+    .Navbarfooter_resultsList__vKN1M {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 0;
+        border: 1px solid #ccc;
+        border-top: none;
+        background-color: #fff;
+        max-height: 400px;
+        overflow-y: auto;
+        position: absolute;
+        z-index: 999;
+        width: 25vw;
+    }
+    .Navbarfooter_resultsItem__BHcA_ {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        display: flex
+    }
+    .Navbarfooter_resultsItem__BHcA_:hover {
+        background-color: #f0f0f0;
+    }
+
 /*!*************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./src/styles/movieDetails.css ***!
   \*************************************************************************************************************************************************************************************************************************************************************************/
-.searchImg{
-    width: 20%;
-    border-radius: 8px;  
+:root {
+    --media-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.mediaDetails{
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.mediaDetails {
     border: none;
     background: #bad7e9;
 }
 
-.mediaDetails:hover{
+.mediaDetails:hover {
     background: #0d6efd;
 }
 
+.mediaPage {
+    padding: 3rem;
+    display: flex;
+    font-family: var(--media-font);
+}
+
+.searchImg {
+    display: block;
+    width: 75%;
+    border-radius: 8px;
+    flex: 1 1;
+}
+
+.media-title {
+    margin: 0;
+}
+
+.dates {
+    margin: 0;
+    color: #333f46;
+    font-weight: bold;
+}
+
+.overview {
+    width: 70%;
+}
+
+.left {
+    width: 50%;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

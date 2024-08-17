@@ -1,22 +1,27 @@
-import styles from '../../src/styles/movieDetails.css';
-import MediaDetails from './MediaDetails';
+import '../../src/styles/movieDetails.css';
 
 export default function Media({ id, title, name, release_date, image, media_type, air_date, first_air_date, last_air_date, overview }) {
     return (
         <>
-            <div style={{ margin: '2rem', padding: '1.5rem' }}>
-                <h1>{title}</h1>
-                <h1>{name}</h1>
-                {first_air_date || last_air_date ? (
-                    <>
-                    <p>First aired: {first_air_date}</p>
-                    <p>Last aired: {last_air_date}</p>
-                    </>
-                ) : (
-                    <h4>Release Date: {release_date}</h4>
-                )}
-                <img className='searchImg' src={image}></img>
-                <h4>{overview}</h4>
+            <div className='mediaPage'>
+                <div className='left'>
+                    <img className='searchImg' src={image}></img>
+                </div>
+                <div className='right'>
+                    {title ? (
+                        <>
+                            <h1 className='media-title'>{title}</h1>
+                            <p className='dates'>Release Date: {release_date}</p>
+                        </>
+                    ) : (
+                        <>
+                            <h1 className='media-title'>{name}</h1>
+                            <p className='dates' >First aired: {first_air_date}</p>
+                            <p className='dates'>Last aired: {last_air_date}</p>
+                        </>
+                    )}
+                    <p className='overview'>{overview}</p>
+                </div>
             </div>
         </>
     )

@@ -1,3 +1,4 @@
+'use client';
 import NavbarFooter from "./navbarfooter"
 import {Footer, NavigationBar} from "./navbarfooter"
 
