@@ -7,6 +7,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import noImage from '../styles/no_img.jpg';
+import '../styles/filters.css';
 // Dani: I added a component to your Movie component but otherwise I have not touched your code
 import MediaDetails from '../../app/components/MediaDetails';
 import Media from '../../app/components/Media';
@@ -181,7 +182,8 @@ export default function Home() {
     <>
     <div className='container'>
       {/* Filter and Sort Options */}
-      <ButtonGroup>
+      <div className="d-flex justify-content-center my-3">
+      <ButtonGroup className="custom-button-group">
         <DropdownButton as={ButtonGroup} title="Genre" id="bg-nested-dropdown">
           {/* Genre filter options */}
           <Dropdown.Item onClick={() => { setSelectedGenre(''); setGenre(""); }}>None</Dropdown.Item>
@@ -201,24 +203,26 @@ export default function Home() {
           placeholder="Year"
           value={year}
           onChange={(e) => setYear(e.target.value)}
+          className="custom-input"
         />
 
         {/* Sort by Popularity button */}
-        <Button onClick={() => handleSort("popularity")}>
+        <Button className="custom-button" onClick={() => handleSort("popularity")}>
           Popularity {sortOrder === "asc" ? "↑" : "↓"}
         </Button>
 
         {/* Sort by Title button */}
-        <Button onClick={() => handleSort("title")}>
+        <Button className="custom-button" onClick={() => handleSort("title")}>
           Title {sortOrder === "asc" ? "↑" : "↓"}
         </Button>
         
         {/* Reset filters button */}
-        <Button onClick={() => refreshPage()}>
+        <Button className="custom-button" onClick={() => refreshPage()}>
           Reset filters
         </Button>
         
       </ButtonGroup>
+      </div>
 
       {/* Display the selected genre */}
       <div>
