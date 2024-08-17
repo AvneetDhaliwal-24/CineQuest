@@ -1,0 +1,40 @@
+.custom-button-group {
+    font-family: Helvetica, sans-serif;
+    font-size: 1rem;
+    color: #ffffff; /* Font color */
+  }
+
+  .custom-button-group .dropdown-toggle {
+    background-color: #BAD7E9 !important;
+    color: #ffffff !important;
+    border: none !important;
+  }
+  
+  .custom-button-group .dropdown-toggle:hover {
+    background-color: #EB455F !important;
+    color: #ffffff !important;
+  }
+  
+  .custom-button {
+    background-color: #BAD7E9;
+    border: none;
+    color: #ffffff;
+  }
+  
+  .custom-button:hover {
+    background-color: #EB455F;
+  }
+  
+  .custom-input {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    color: #2B3467;
+    border: 1px solid #BAD7E9;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+  .custom-input::placeholder {
+    color: #2B3467;
+  }
+  

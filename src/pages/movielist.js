@@ -7,6 +7,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import noImage from '../styles/no_img.jpg';
+import '../styles/filters.css';
 // Dani: I added a component to your Movie component but otherwise I have not touched your code
 import MediaDetails from '../../app/components/MediaDetails';
 
@@ -173,46 +174,49 @@ export default function Home() {
 
   return (
     <>
-      <div className='container'>
-        {/* Filter and Sort Options */}
-        <ButtonGroup>
-          <DropdownButton as={ButtonGroup} title="Genre" id="bg-nested-dropdown">
-            {/* Genre filter options */}
-            <Dropdown.Item onClick={() => { setSelectedGenre(''); setGenre(""); }}>None</Dropdown.Item>
-            <Dropdown.Item eventKey="1" onClick={() => { setSelectedGenre('28'); setGenre("Action"); }}>Action</Dropdown.Item>
-            <Dropdown.Item eventKey="2" onClick={() => { setSelectedGenre('12'); setGenre("Adventure"); }}>Adventure</Dropdown.Item>
-            <Dropdown.Item eventKey="3" onClick={() => { setSelectedGenre('35'); setGenre("Comedy"); }}>Comedy</Dropdown.Item>
-            <Dropdown.Item eventKey="4" onClick={() => { setSelectedGenre('80'); setGenre("Crime"); }}>Crime</Dropdown.Item>
-            <Dropdown.Item eventKey="5" onClick={() => { setSelectedGenre('18'); setGenre("Drama"); }}>Drama</Dropdown.Item>
-            <Dropdown.Item eventKey="6" onClick={() => { setSelectedGenre('10749'); setGenre("Romance"); }}>Romance</Dropdown.Item>
-            <Dropdown.Item eventKey="7" onClick={() => { setSelectedGenre('878'); setGenre("Science Fiction"); }}>Science Fiction</Dropdown.Item>
-          </DropdownButton>
+    <div className='container'>
+      {/* Filter and Sort Options */}
+      <div className="d-flex justify-content-center my-3">
+      <ButtonGroup className="custom-button-group">
+        <DropdownButton as={ButtonGroup} title="Genre" id="bg-nested-dropdown">
+          {/* Genre filter options */}
+          <Dropdown.Item onClick={() => { setSelectedGenre(''); setGenre(""); }}>None</Dropdown.Item>
+          <Dropdown.Item eventKey="1" onClick={() => { setSelectedGenre('28'); setGenre("Action"); }}>Action</Dropdown.Item>
+          <Dropdown.Item eventKey="2" onClick={() => { setSelectedGenre('12'); setGenre("Adventure"); }}>Adventure</Dropdown.Item>
+          <Dropdown.Item eventKey="3" onClick={() => { setSelectedGenre('35'); setGenre("Comedy"); }}>Comedy</Dropdown.Item>
+          <Dropdown.Item eventKey="4" onClick={() => { setSelectedGenre('80'); setGenre("Crime"); }}>Crime</Dropdown.Item>
+          <Dropdown.Item eventKey="5" onClick={() => { setSelectedGenre('18'); setGenre("Drama"); }}>Drama</Dropdown.Item>
+          <Dropdown.Item eventKey="6" onClick={() => { setSelectedGenre('10749'); setGenre("Romance"); }}>Romance</Dropdown.Item>
+          <Dropdown.Item eventKey="7" onClick={() => { setSelectedGenre('878'); setGenre("Science Fiction"); }}>Science Fiction</Dropdown.Item>
+        </DropdownButton>
 
-          {/* Year filter input */}
-          <input
-            type="text"
-            inputMode="numeric"
-            placeholder="Year"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-          />
+        {/* Year filter input */}
+        <input
+          type="text"
+          inputMode="numeric"
+          placeholder="Year"
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
+          className="custom-input"
+        />
 
-          {/* Sort by Popularity button */}
-          <Button onClick={() => handleSort("popularity")}>
-            Popularity {sortOrder === "asc" ? "↑" : "↓"}
-          </Button>
+        {/* Sort by Popularity button */}
+        <Button className="custom-button" onClick={() => handleSort("popularity")}>
+          Popularity {sortOrder === "asc" ? "↑" : "↓"}
+        </Button>
 
-          {/* Sort by Title button */}
-          <Button onClick={() => handleSort("title")}>
-            Title {sortOrder === "asc" ? "↑" : "↓"}
-          </Button>
-
-          {/* Reset filters button */}
-          <Button onClick={() => refreshPage()}>
-            Reset filters
-          </Button>
-
-        </ButtonGroup>
+        {/* Sort by Title button */}
+        <Button className="custom-button" onClick={() => handleSort("title")}>
+          Title {sortOrder === "asc" ? "↑" : "↓"}
+        </Button>
+        
+        {/* Reset filters button */}
+        <Button className="custom-button" onClick={() => refreshPage()}>
+          Reset filters
+        </Button>
+        
+      </ButtonGroup>
+      </div>
 
         {/* Display the selected genre */}
         <div>
