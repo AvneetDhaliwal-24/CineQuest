@@ -97,7 +97,7 @@ function Item(props) {
 
   return (
     <div className={styles.carouselItemParentDiv} onClick={handleClick}>
-      <img src={(props.item.poster_path && props.item.backdrop_path) ? `http://image.tmdb.org/t/p/w500${props.item.poster_path ? props.item.poster_path : props.item.backdrop_path}` : noImage.src} />
+      <img src={(props.item.poster_path || props.item.backdrop_path) ? `http://image.tmdb.org/t/p/w500${props.item.poster_path ? props.item.poster_path : props.item.backdrop_path}` : noImage.src} />
       <div className={styles.movieInformation}>
         <div>
           <h4>{props.item.title ? props.item.title : props.item.name}</h4>
