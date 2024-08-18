@@ -64,6 +64,7 @@ function Header() {
       }
     };
 
+    handleResize();
     //Resize event listener
     window.addEventListener('resize', handleResize);
 
