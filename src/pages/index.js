@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Carousel from 'react-bootstrap/Carousel';
 import { useRouter } from 'next/router';
 
 import styles from "@/styles/homepage.module.css";
@@ -26,8 +25,6 @@ function MoviesTVShows(props) {
     const fetchData = async () => {
       try {
         // Fetch data from both APIs
-
-
         const [response1, response2] = await Promise.all([
           fetch(`https://api.themoviedb.org/3/${props.about}/${props.pageName}?language=en-US&page=${props.page}&api_key=129348eec339866757f2e116253e264c`),
           fetch(`https://api.themoviedb.org/3/${props.about}/${props.pageName}?language=en-US&page=${props.page + 1}&api_key=129348eec339866757f2e116253e264c`)
@@ -65,20 +62,6 @@ function CineQuestCarousel(props) {
     router.push('/MovieList');
   }
 
-  let elements = [];
-  for (let i = 1; i <= 35; i += 7) {
-    let element = <Carousel.Item>
-      <div className={styles.carouselItemsContainer}>
-        {
-          props.list.slice(i, i + 7).map((j) => {
-            return <CarouselItem item={j} about={props.about} />
-          })
-        }
-      </div>
-    </Carousel.Item>;
-    elements.push(element);
-  }
-
   //we made changes here!!
 
   return (
@@ -94,19 +77,18 @@ function CineQuestCarousel(props) {
         </svg>
       </h3>
       </Link>
-      <Carousel interval={null} indicators={false} slide={false}>
-        {
-          elements
-        }
-      </Carousel>
+
+      <div className={styles.slider}>
+      {
+        props.list.map((item, index) => <Item key={index} item={item} about={props.about} />)
+      }
+      </div>
     </>
   );
 }
 
 
-function CarouselItem(props) {
-
- 
+function Item(props) {
   const router = useRouter();
 
   function handleClick() {
@@ -121,8 +103,8 @@ function CarouselItem(props) {
           <h4>{props.item.title ? props.item.title : props.item.name}</h4>
           <p>{props.item.release_date ? props.item.release_date : props.item.first_air_date}</p>
         </div>
+        
         <div>
-
           <p>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="gold" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />

@@ -83,24 +83,124 @@
 
 /* search drop down css */
 
+.resultsList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: #fff;
+    max-height: 400px;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 999;
+    width: 25vw;
+}
+
+.resultsItem {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex
+}
+
+.resultsItem:hover {
+    background-color: #f0f0f0;
+}
+
+.headerFirstElement{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .title {
+        margin-bottom: 10px;
+    }
+
+    .searchBar {
+        width: 96vw;
+        /* Make search bar full width on mobile */
+    }
+
     .resultsList {
-        list-style-type: none;
-        padding: 0;
-        margin: 0 0;
-        border: 1px solid #ccc;
-        border-top: none;
-        background-color: #fff;
-        max-height: 400px;
-        overflow-y: auto;
-        position: absolute;
-        z-index: 999;
-        width: 25vw;
+        width: 96vw;
+        /* Adjust dropdown width to match search bar */
     }
-    .resultsItem {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-        display: flex
+
+    .navList {
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
     }
-    .resultsItem:hover {
-        background-color: #f0f0f0;
+
+    .navLink {
+        padding: 10px 20px;
+        width: 100%;
+        text-align: left;
     }
+
+    .navigationBar {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .hamburgerMenu {
+        display: flex !important;
+    }
+
+    .navItem{
+        width: inherit;
+    }
+}
+
+@media (max-width: 480px) {
+    .searchBar {
+        width: 95vw;
+    }
+
+    .resultsList {
+        width: 95vw;
+    }
+
+    .navLink {
+        padding: 10px 15px;
+    }
+
+    .hamburgerMenu {
+        display: flex !important;
+    }
+    
+    .navItem{
+        width: inherit;
+    }
+
+}
+
+/* Hamburger menu styling */
+.hamburgerMenu {
+    width: 30px;
+    height: 24px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.bar {
+    width: 100%;
+    height: 4px;
+    background-color: #000000;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
