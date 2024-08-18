@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
+import noImage from '../styles/no_img.jpg';
 import styles from "@/styles/homepage.module.css";
 
 export default function HomePage() {
@@ -97,7 +97,7 @@ function Item(props) {
 
   return (
     <div className={styles.carouselItemParentDiv} onClick={handleClick}>
-      <img src={"http://image.tmdb.org/t/p/w500" + (props.item.poster_path ? props.item.poster_path : props.item.backdrop_path)} />
+      <img src={(props.item.poster_path && props.item.backdrop_path) ? `http://image.tmdb.org/t/p/w500${props.item.poster_path ? props.item.poster_path : props.item.backdrop_path}` : noImage.src} />
       <div className={styles.movieInformation}>
         <div>
           <h4>{props.item.title ? props.item.title : props.item.name}</h4>
