@@ -1,12 +1,11 @@
 'use client';
 import NavbarFooter from "./navbarfooter"
-import {Footer, NavigationBar} from "./navbarfooter"
+import {Footer} from "./navbarfooter"
 
 export default function Layout(props) {
     return (
         <>
             <NavbarFooter />
-            <NavigationBar />
             <main>{props.children}</main>
             <Footer />
         </>
