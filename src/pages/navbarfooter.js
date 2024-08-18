@@ -103,7 +103,7 @@ function Header() {
             isDropdownVisible && (
               <ul className={styles.resultsList}>
                 {results.length > 0 ? (results.map((item, index) => (
-                  <li onClick={handleOnClick} key={index} id={item.id} className={styles.resultsItem}><img style={{ height: '100px', width: '100px', zIndex: 999 }} src={(item.poster_path && item.backdrop_path) ? `http://image.tmdb.org/t/p/w500${item.poster_path ? item.poster_path : item.backdrop_path}` : noImage.src} /><span style={{ paddingLeft: "5px" }}>{item.title}</span></li>
+                  <li onClick={handleOnClick} key={index} id={item.id} className={styles.resultsItem}><img style={{ height: '100px', width: '100px', zIndex: 999 }} src={(item.poster_path || item.backdrop_path) ? `http://image.tmdb.org/t/p/w500${item.poster_path ? item.poster_path : item.backdrop_path}` : noImage.src} /><span style={{ paddingLeft: "5px" }}>{item.title}</span></li>
                 ))) : query.length > 2 ?
                   (
                     <li className={styles.resultsItem}>No results found</li>
