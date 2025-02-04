@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import noImage from '../styles/no_img.jpg';
 import styles from "@/styles/homepage.module.css";
 
+import dotenv from "dotenv";
+
 export default function HomePage() {
   return (
     <>
@@ -19,15 +21,20 @@ export default function HomePage() {
 
 function MoviesTVShows(props) {
 
+
+  dotenv.config();
+
   const [itemsList, setitemsList] = useState([]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
+
       try {
         // Fetch data from both APIs
         const [response1, response2] = await Promise.all([
-          fetch(`https://api.themoviedb.org/3/${props.about}/${props.pageName}?language=en-US&page=${props.page}&api_key=129348eec339866757f2e116253e264c`),
-          fetch(`https://api.themoviedb.org/3/${props.about}/${props.pageName}?language=en-US&page=${props.page + 1}&api_key=129348eec339866757f2e116253e264c`)
+          fetch(`https://api.themoviedb.org/3/${props.about}/${props.pageName}?language=en-US&page=${props.page}&api_key=${process.env.NEXT_PUBLIC_API_KEY}`),
+          fetch(`https://api.themoviedb.org/3/${props.about}/${props.pageName}?language=en-US&page=${props.page + 1}&api_key=${process.env.NEXT_PUBLIC_API_KEY}`)
         ]);
 
         // Check if both responses are successful

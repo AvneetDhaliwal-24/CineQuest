@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, act } from 'react';
 import { useRouter } from 'next/router';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
@@ -11,9 +11,38 @@ import '../styles/filters.css';
 // Dani: I added a component to your Movie component but otherwise I have not touched your code
 import MediaDetails from '../../app/components/MediaDetails';
 
-const Movie = ({ title, img, id, media_type, release_date }) => (
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+
+
+//Movies and TV Shows tab component for recently released and top rated pages
+function TabComponent(props) {
+
+  const handleSelect = (key) => {
+    props.activeKeyFunc(key);
+  };
+
+  return (
+    <Tabs
+      activeKey={props.activeKey}
+      onSelect={handleSelect}
+      id="fill-tab-example"
+      className="mb-3"
+      fill
+    >
+      <Tab eventKey="movie" title="Movies">
+
+      </Tab>
+      <Tab eventKey="tv" title="Tv Shows">
+
+      </Tab>
+    </Tabs>
+  );
+}
+
+const Movie = ({ title, img, id, media_type, name,  release_date }) => (
   <div className='movie-item'>
-    <h3 className='movie-title'>{title}</h3>
+    <h3 className='movie-title'>{title} - {media_type} - {id}</h3>
     <div className='image-wrapper'>
       <Image loader={() => img}
         unoptimized={true}
@@ -41,19 +70,28 @@ export default function Home() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const [pageName, setPageName] = useState();
+
+  const [activeKey, setActiveKey] = useState('movie');
+
 
   // Fetch movies from the API with filters and sorting applied
   const fetchMovies = async (page = 1) => {
     const genreQuery = selectedGenre ? `&with_genres=${selectedGenre}` : '';
     const yearQuery = year ? `&primary_release_year=${year}` : '';
     let url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}.${sortOrder}${genreQuery}${yearQuery}`;
+    // let url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}.${sortOrder}${genreQuery}${yearQuery}`;
+
     //receive index param
     const urlIndex = 'https://api.themoviedb.org/3/movie/';
     const urlFilter = searchParams.get('filter');
 
+
+
     if (urlFilter) {
       url = urlIndex + urlFilter;
-      console.log('Filter applied:', urlFilter);
+      // console.log('Filter applied:', urlFilter);
+      // console.log(url);
     }
 
     const options = {
@@ -63,6 +101,26 @@ export default function Home() {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYmYyNzIzN2Q4ZTllODE2MDkxMDAwYzVlY2ZmMWI3MiIsIm5iZiI6MTcyMjM4NjcxNi4xMjk2MDEsInN1YiI6IjY2YTAxYjUzYzk0NmJkZjk5NDBhNmM1MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Fnuxrcve4S4BJ_WagUZDhu6DbbLJ9sC1RH2Lg8Dt5_U'
       }
     };
+
+    //code for recently released page
+    if (pageName == 'now_playing') {
+      let today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = today.getFullYear();
+
+      today = mm + '/' + dd + '/' + yyyy;
+      let currentDate = yyyy + '-' + mm + '-' + dd;
+
+      url = `https://api.themoviedb.org/3/discover/${activeKey}?include_adult=false&include_video=false&language=en-US&page=${page}&primary_release_date.lte=${currentDate}&sort_by=${sortBy}.${sortOrder}${genreQuery}${yearQuery}`;
+      // url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}.${sortOrder}${genreQuery}${yearQuery}`;
+      // console.log(url);
+    }
+    else if (pageName == 'top_rated') { //code for top rated page
+      url = `https://api.themoviedb.org/3/${activeKey}/top_rated?language=en-US&page=${page}`;
+    }
+
+    // console.log(url);
 
     try {
       const response = await fetch(url, options);
@@ -85,7 +143,18 @@ export default function Home() {
   // Fetch movies when component mounts or filters/sort options change
   useEffect(() => {
     fetchMovies(currentPage);
-  }, [sortBy, sortOrder, selectedGenre, year]);
+  }, [sortBy, sortOrder, selectedGenre, year, activeKey, pageName]);
+
+  useEffect(() => {
+    const { filter } = router.query;
+
+    if (!filter) {
+      setPageName(searchParams.get(''));
+    }
+    else {
+      setPageName(searchParams.get('filter'));
+    }
+  });
 
   // Get the current set of movies to display based on pagination
   const getCurrentMovies = () => {
@@ -104,8 +173,8 @@ export default function Home() {
       const additionalMovies = movies.slice(0, needed);
       currentMovies = [...currentMovies, ...additionalMovies];
 
-      console.log("needed movie num", needed);
-      console.log('additionalMovies', additionalMovies);
+      // console.log("needed movie num", needed);
+      // console.log('additionalMovies', additionalMovies);
     }
 
     return currentMovies;
@@ -174,49 +243,56 @@ export default function Home() {
 
   return (
     <>
-    <div className='container'>
-      {/* Filter and Sort Options */}
-      <div className="d-flex justify-content-center my-3">
-      <ButtonGroup className="custom-button-group">
-        <DropdownButton as={ButtonGroup} title="Genre" id="bg-nested-dropdown">
-          {/* Genre filter options */}
-          <Dropdown.Item onClick={() => { setSelectedGenre(''); setGenre(""); }}>None</Dropdown.Item>
-          <Dropdown.Item eventKey="1" onClick={() => { setSelectedGenre('28'); setGenre("Action"); }}>Action</Dropdown.Item>
-          <Dropdown.Item eventKey="2" onClick={() => { setSelectedGenre('12'); setGenre("Adventure"); }}>Adventure</Dropdown.Item>
-          <Dropdown.Item eventKey="3" onClick={() => { setSelectedGenre('35'); setGenre("Comedy"); }}>Comedy</Dropdown.Item>
-          <Dropdown.Item eventKey="4" onClick={() => { setSelectedGenre('80'); setGenre("Crime"); }}>Crime</Dropdown.Item>
-          <Dropdown.Item eventKey="5" onClick={() => { setSelectedGenre('18'); setGenre("Drama"); }}>Drama</Dropdown.Item>
-          <Dropdown.Item eventKey="6" onClick={() => { setSelectedGenre('10749'); setGenre("Romance"); }}>Romance</Dropdown.Item>
-          <Dropdown.Item eventKey="7" onClick={() => { setSelectedGenre('878'); setGenre("Science Fiction"); }}>Science Fiction</Dropdown.Item>
-        </DropdownButton>
+      <div className='container'>
 
-        {/* Year filter input */}
-        <input
-          type="text"
-          inputMode="numeric"
-          placeholder="Year"
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-          className="custom-input"
-        />
+        {
+          (pageName == 'now_playing' || pageName == 'top_rated') ? <TabComponent activeKeyFunc={setActiveKey} activeKey={activeKey} /> : ''
+        }
 
-        {/* Sort by Popularity button */}
-        <Button className="custom-button" onClick={() => handleSort("popularity")}>
-          Popularity {sortOrder === "asc" ? "↑" : "↓"}
-        </Button>
+        {pageName == 'top_rated' ? "" :
+          /* Filter and Sort Options */
+          < div className="d-flex justify-content-center my-3">
+            <ButtonGroup className="custom-button-group">
+              <DropdownButton as={ButtonGroup} title="Genre" id="bg-nested-dropdown">
+                {/* Genre filter options */}
+                <Dropdown.Item onClick={() => { setSelectedGenre(''); setGenre(""); }}>None</Dropdown.Item>
+                <Dropdown.Item eventKey="1" onClick={() => { setSelectedGenre('28'); setGenre("Action"); }}>Action</Dropdown.Item>
+                <Dropdown.Item eventKey="2" onClick={() => { setSelectedGenre('12'); setGenre("Adventure"); }}>Adventure</Dropdown.Item>
+                <Dropdown.Item eventKey="3" onClick={() => { setSelectedGenre('35'); setGenre("Comedy"); }}>Comedy</Dropdown.Item>
+                <Dropdown.Item eventKey="4" onClick={() => { setSelectedGenre('80'); setGenre("Crime"); }}>Crime</Dropdown.Item>
+                <Dropdown.Item eventKey="5" onClick={() => { setSelectedGenre('18'); setGenre("Drama"); }}>Drama</Dropdown.Item>
+                <Dropdown.Item eventKey="6" onClick={() => { setSelectedGenre('10749'); setGenre("Romance"); }}>Romance</Dropdown.Item>
+                <Dropdown.Item eventKey="7" onClick={() => { setSelectedGenre('878'); setGenre("Science Fiction"); }}>Science Fiction</Dropdown.Item>
+              </DropdownButton>
 
-        {/* Sort by Title button */}
-        <Button className="custom-button" onClick={() => handleSort("title")}>
-          Title {sortOrder === "asc" ? "↑" : "↓"}
-        </Button>
-        
-        {/* Reset filters button */}
-        <Button className="custom-button" onClick={() => refreshPage()}>
-          Reset filters
-        </Button>
-        
-      </ButtonGroup>
-      </div>
+              {/* Year filter input */}
+              <input
+                type="text"
+                inputMode="numeric"
+                placeholder="Year"
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
+                className="custom-input"
+              />
+
+              {/* Sort by Popularity button */}
+              <Button className="custom-button" onClick={() => handleSort("popularity")}>
+                Popularity {sortOrder === "asc" ? "↑" : "↓"}
+              </Button>
+
+              {/* Sort by Title button */}
+              <Button className="custom-button" onClick={() => handleSort("title")}>
+                Title {sortOrder === "asc" ? "↑" : "↓"}
+              </Button>
+
+              {/* Reset filters button */}
+              <Button className="custom-button" onClick={() => refreshPage()}>
+                Reset filters
+              </Button>
+
+            </ButtonGroup>
+          </div>
+        }
 
         {/* Display the selected genre */}
         <div>
@@ -228,16 +304,15 @@ export default function Home() {
           {getCurrentMovies().map((movie) => (
             <Movie key={movie.id} title={movie.title}
               img={movie.poster_path ? imageBaseURL + movie.poster_path : noImage}
-               id={movie.id} media_type='movie'/>
+              id={movie.id} media_type={ (pageName == 'top_rated' || pageName == 'now_playing') ? activeKey :  'movie'} name={movie.name}/>
 
           ))}
         </div>
-
         {/* Pagination controls */}
         <div className='pagination'>
           {createPaginationItems()}
         </div>
-      </div>
+      </div >
     </>
   );
 }

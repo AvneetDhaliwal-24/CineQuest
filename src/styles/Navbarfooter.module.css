@@ -19,6 +19,12 @@
     color: #2B3467;
 }
 
+.title > * {
+    text-decoration: none;
+    color: inherit;
+}
+
+
 .searchBar {
     display: flex;
     border: 1px solid black;
@@ -100,7 +106,7 @@
 .resultsItem {
     padding: 10px;
     border-bottom: 1px solid #eee;
-    display: flex
+    display: flex;
 }
 
 .resultsItem:hover {
