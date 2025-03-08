@@ -33,8 +33,8 @@ function MoviesTVShows(props) {
       try {
         // Fetch data from both APIs
         const [response1, response2] = await Promise.all([
-          fetch(`https://api.themoviedb.org/3/${props.about}/${props.pageName}?language=en-US&page=${props.page}&api_key=${bbf27237d8e9e816091000c5ecff1b72}`),
-          fetch(`https://api.themoviedb.org/3/${props.about}/${props.pageName}?language=en-US&page=${props.page + 1}&api_key=${bbf27237d8e9e816091000c5ecff1b72}`)
+          fetch(`https://api.themoviedb.org/3/${props.about}/${props.pageName}?language=en-US&page=${props.page}&api_key=bbf27237d8e9e816091000c5ecff1b72`),
+          fetch(`https://api.themoviedb.org/3/${props.about}/${props.pageName}?language=en-US&page=${props.page + 1}&api_key=bbf27237d8e9e816091000c5ecff1b72`)
         ]);
 
         // Check if both responses are successful
